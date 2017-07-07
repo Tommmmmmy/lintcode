@@ -1,0 +1,24 @@
+public class Solution {
+    /**
+     * @param A, B: Two strings.
+     * @return: The length of longest common subsequence of A and B.
+     */
+    public int longestCommonSubsequence(String A, String B) {
+        // write your code here
+        return helper(A, B, A.length(), B.length(), new Integer[A.length() + 1][B.length() + 1]);
+    }
+    
+    public int helper(String A, String B, int lenA, int lenB, Integer[][] dp){
+        if(dp[lenA][lenB] != null) return dp[lenA][lenB];
+        if(lenA == 0 || lenB == 0){
+            return 0;
+        }
+        int res = 0;
+        if(A.charAt(lenA - 1) == B.charAt(lenB - 1)){
+            res = helper(A, B, lenA - 1, lenB - 1, dp) + 1;
+        }
+        else res = Math.max(helper(A, B, lenA - 1, lenB, dp), helper(A, B, lenA, lenB - 1, dp));
+        dp[lenA][lenB] = res;
+        return res;
+    }
+}
