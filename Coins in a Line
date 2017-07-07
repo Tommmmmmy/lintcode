@@ -1,0 +1,31 @@
+public class Solution {
+    /**
+     * @param n: an integer
+     * @return: a boolean which equals to true if the first player will win
+     */
+    public boolean firstWillWin(int n) {
+        // write your code here
+        if(n <= 0) return false;
+        if(n <= 2) return true;
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = false;
+        dp[1] = true;
+        dp[2] = true;
+        dp[3] = false;
+        for(int i = 4; i <= n; i++){
+            dp[i] = dp[i - 3];
+        }
+        return dp[n];
+    }
+}
+
+箱子里面有一百个球，甲和乙分别拿球，每次最少一个，最多5个，拿到第一百个球的人获胜。若甲先拿，请问他第一次要拿几个，怎么保证他能拿到第一百个球。 
+　　思路：反向递推法 
+　　要拿到第100个球，必须保证拿到第94个球， 
+　　要保证拿到第94个球，必须保证拿到第88个球， 
+　　依次类推， 
+　　每次都要保证拿到第100-6*N个球， 
+　　最小是100%6=4个球，（100对6取余为4） 
+　　那么最开始要拿4个球。后来每次确保拿到的个数与乙拿的球的个数和为6.比如，乙拿1个，甲就拿5个；乙拿2个，甲就拿4个，依次类推。 
+　　总结一下，一般式：如果N个球，甲和乙分别拿球，每次最多拿K个，最少拿一个，甲先拿，要确保甲拿到最后一个球，那么，甲第一次就要拿（N%（K+1））个，后来每次确保与另一方拿的球的个数和为（K+1）个。 
+而在本题中，甲第一次要拿N%3 = 0, 1, 2个，只有当N%3 == 0时，无论甲拿1个或2个，结果都是甲输乙赢。而当N%3==1,2时，无论甲第一次拿1个或2个都是甲赢乙输。
