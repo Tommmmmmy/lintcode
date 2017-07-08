@@ -1,3 +1,4 @@
+
 public class Solution {
     /**
      * @param m: An integer m denotes the size of a backpack
@@ -16,3 +17,5 @@ public class Solution {
         return dp[m];
     }
 }
+
+if every item can be used many times, then the inner loop should starts from 0 instead m
