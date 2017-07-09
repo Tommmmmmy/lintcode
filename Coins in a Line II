@@ -1,0 +1,36 @@
+public class Solution {
+    public boolean firstWillWin(int[] values) {
+        // write your code here
+        int len = values.length;
+        if (len <= 2) {
+            return true;
+        }
+        //dp[i] means the largest value you(the first player) 
+        //can get when you start from values[i] 
+        int[] dp = new int[len+1];
+        //not even exist
+        dp[len] = 0;
+        //when you happen to have the last coin, yes, consider the last first
+        dp[len-1] = values[len-1];
+        //sure we should get the last two for most value
+        dp[len-2] = values[len-1] + values[len-2];
+        //same rules, why leave two(len-1, len-2) for the other player
+        dp[len-3] = values[len-2] + values[len-3];
+        //next we are gonna sum up
+        for (int i = len-4; i >= 0; i--) {
+            //you have to have values[i] and the non-optimal later choice
+            //because the other player is smart to leave you the worse one
+            //between two of your optimal choices
+            dp[i] = values[i] + Math.min(dp[i+2], dp[i+3]);
+            dp[i] = Math.max(dp[i], values[i] + values[i+1] + Math.min(dp[i+3], dp[i+4]));
+            //equals to: dp[i] = Math.max(values[i] + Math.min(dp[i+2],dp[i+3]), values[i] + values[i+1] + Math.min(dp[i+3], dp[i+4]));
+        }
+        //compute the total value of coins
+        int sum = 0;
+        for (int a: values) {
+            sum += a;   
+        }
+        //compare your final value to the other player's
+        return dp[0] > sum - dp[0];
+    }
+}
