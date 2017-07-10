@@ -1,4 +1,4 @@
-public class Solution {
+ public class Solution {
     /**
      * @param A: An integer array.
      * @param target: An integer.
@@ -12,7 +12,7 @@ public class Solution {
             for(int j = 0; j <= 100; j++){
                 if(i == 0) dp[i][j] = Math.abs(j - A.get(i));
                 else{
-                    dp[i][j] = Integer.MAX_VALUE;
+                    dp[i][j] = Integer.MAX_VALUE; //Remember this!
                     for(int k = 0; k <= 100; k++){
                         if(Math.abs(j - k) > target){
                             continue;
